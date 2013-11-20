@@ -50,7 +50,7 @@ if ($user) {
  
 } else {
   $statusUrl = $facebook->getLoginStatusUrl();
-  $loginUrl = $facebook->getLoginUrl();
+  $loginUrl = $facebook->getLoginUrl(array('scope' => 'read_stream, user_friends, friends_relationships, user_likes, friends_likes, friends_birthday'));
 }
 
 
@@ -77,7 +77,7 @@ if ($user) {
     </style>
   </head>
   <body>
-  	  
+  	  <div id="container" align="center">
     <h1>Facebook Dashboard Profil</h1>
 
     <?php if ($user): ?>
@@ -89,23 +89,32 @@ if ($user) {
     <?php endif ?>
 
     <?php if ($user): ?>
-      <h3>Bonjour !</h3>
-      <img src="https://graph.facebook.com/<?php echo $user; ?>/picture">
+      <h3> <img src="https://graph.facebook.com/<?php echo $user; ?>/picture"> Bonjour <?php echo $user_profile["name"]; ?>!</h3>
+     
      <!-- <pre><?php echo print_r($friends) ?></pre> -->
   <!--   <a href="stats.php?token=<?php echo $my_access_token; ?>">Me</a> -->
   <div id="filters">
    <select id="friends_stats" name="friends_stats">
-   	  <option value="default" selected="selected">Choisissez une options</option>
+   	  <option value="default" selected="selected">Choisissez une option</option>
       <option value="gender">Gender</option>
-      <option value="top">Top Like</option>
+      <option value="top">Top 10 Like</option>
+      <option value="relationship">Relationship</option>
+      <option value="age_range">Age range</option>
    </select>
 </div>
 
 	 <div id="target">
-	</div>
+	 	</div>
+	 	<center>
+	 	<div id="ajax-loading">
+	 		<p>Le chargement est un peu long, vous pouvez aller prendre un café... (environ 2 min)</p>
+   	    <img src="http://www.ajaxload.info/images/exemples/5.gif" alt="Loading" />
+   	    </div>
+   	    </center>
+	
     <?php else: ?>
       <strong><em>You are not Connected.</em></strong>
     <?php endif ?>
-
+</div>
   </body>
 </html>
